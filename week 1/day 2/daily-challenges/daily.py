@@ -1,3 +1,5 @@
+# challenge:
+
 word = input("enter a word : ")
 
 letter_indexes = {}
