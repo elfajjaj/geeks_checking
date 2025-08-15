@@ -41,25 +41,19 @@ class Pagination:
     def __str__(self):
         return "\n".join(str(item) for item in self.get_visible_items())
 
-
-# ----------------- TEST CASES -----------------
 alphabetList = list("abcdefghijklmnopqrstuvwxyz")
 p = Pagination(alphabetList, 4)
 
 print(p.get_visible_items())
-# ['a', 'b', 'c', 'd']
 
 p.next_page()
 print(p.get_visible_items())
-# ['e', 'f', 'g', 'h']
 
 p.last_page()
 print(p.get_visible_items())
-# ['y', 'z']
 
 p.go_to_page(7)
 print(p.current_idx + 1)
-# Output: 7
 
 try:
     p.go_to_page(0)  # Should raise ValueError
