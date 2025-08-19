@@ -1,3 +1,4 @@
+
 create table items(
 item_id SERIAL Primary Key,
 name VARCHAR(50) Not Null,
