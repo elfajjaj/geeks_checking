@@ -52,6 +52,7 @@ CREATE TABLE customer_review (
         REFERENCES language (language_id)
 );
 
+
                                 
 -- 6. Add 2 movie reviews
 

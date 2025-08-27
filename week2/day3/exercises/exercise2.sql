@@ -12,9 +12,9 @@ WHERE film_id = 1;
 
 -- (Query to show foreign keys of table customer)
 
-SELECT conname, conrelid::regclass AS table_name, confrelid::regclass AS referenced_table
-FROM pg_constraint
-WHERE conrelid = 'customer'::regclass AND contype = 'f';
+foreign keys in the table customer are :
+store_id → reference table store(id) 
+address_id → reference table address(id)
 
 
 -- 3. Drop the table customer_review
