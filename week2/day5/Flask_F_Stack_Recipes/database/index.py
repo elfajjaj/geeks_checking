@@ -14,7 +14,6 @@ def connect_to_db():
             user='neondb_owner',
             password='npg_AcgkdTtr1PB2',
             sslmode='require',
-            connection_factory=RealDictConnection
         )
         return conn
     except Exception as e:

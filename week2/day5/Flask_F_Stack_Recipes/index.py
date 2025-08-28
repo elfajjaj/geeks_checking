@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from database.index import connect_to_db
 import os
 from dotenv import load_dotenv
+from math import ceil
 
 load_dotenv()
 
@@ -10,16 +11,28 @@ app.secret_key = os.getenv('SECRET_KEY')
 
 @app.route('/', methods=['GET'])
 def index():
-    conn = connect_to_db()
+    pages = 8
+    page = request.args.get('page', 1, type = int)
+    offset = (page -1)* pages
+    conn = connect_to_db()               
     if not conn:
         return render_template('index.html', recipes=[])
 
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM recipes")
+    cursor = conn.cursor()           
+    cursor.execute("SELECT * FROM recipes LIMIT %s OFFSET %s", (pages,offset,))  
     recipes = cursor.fetchall()
+    cursor.execute("SELECT COUNT(*) FROM recipes;")
+    total = cursor.fetchone()[0]
+    total_pages = ceil(total / pages)
+ 
     conn.close()
 
-    return render_template('index.html', recipes=recipes)
+    return render_template(
+        'index.html',
+        recipes=recipes,
+        page=page,
+        total_pages=total_pages
+)
 
 
 # تفاصيل وصفة
