@@ -3,7 +3,6 @@
 {% block content %}
 <main class="max-w-7xl mx-auto my-10">
 
-  <!-- الوصفات -->
   <div class="grid grid-cols-1 mt-4 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch w-[1250px] p-6">
     {% for recipe in recipes %}
     <a href="/recipes/{{ recipe[0] }}" class="flex">
@@ -31,7 +30,6 @@
     {% endfor %}
   </div>
 
-  <!-- Pagination -->
   <div class="flex items-center justify-center gap-2 mt-8">
     {% if page > 1 %}
       <a href="{{ url_for('index', page=page-1) }}"

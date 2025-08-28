@@ -35,7 +35,6 @@ def index():
 )
 
 
-# تفاصيل وصفة
 @app.route('/recipes/<int:id>', methods=['GET'])
 def recipe_detail(id):
     conn = connect_to_db()
@@ -50,7 +49,6 @@ def recipe_detail(id):
     return render_template('recipe_detail.html', recipe=recipe)
 
 
-# إنشاء وصفة جديدة
 @app.route('/create', methods=['POST', 'GET'])
 def create():
     if request.method == 'POST':
@@ -61,7 +59,7 @@ def create():
             'category': request.form.get('category', '').strip()
         }
 
-        # validation
+        
         for key, value in payload.items():
             if not value:
                 flash(f'{key} is required', 'red')
@@ -85,7 +83,6 @@ def create():
     return render_template('create.html')
 
 
-# تعديل وصفة
 @app.route('/edit/<int:id>', methods=['POST', 'GET'])
 def edit(id):
     conn = connect_to_db()
@@ -116,7 +113,6 @@ def edit(id):
     return render_template('edit.html', recipe=recipe)
 
 
-# حذف وصفة
 @app.route('/delete/<int:id>', methods=['POST'])
 def delete(id):
     conn = connect_to_db()
