@@ -9,11 +9,9 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret')
 
-# عدد الوصفات في كل صفحة
 PAGE_SIZE = 8
 
 
-# الصفحة الرئيسية مع Pagination
 @app.route('/', methods=['GET'])
 def index():
     page = request.args.get('page', 1, type=int)
@@ -24,12 +22,10 @@ def index():
         return render_template('index.html', recipes=[], page=1, total_pages=1)
 
     cursor = conn.cursor()
-    # عدد الوصفات الكلي
     cursor.execute("SELECT COUNT(*) FROM recipes;")
     total = cursor.fetchone()[0]
     total_pages = ceil(total / PAGE_SIZE)
 
-    # الوصفات ديال الصفحة الحالية
     cursor.execute(
         "SELECT * FROM recipes ORDER BY id DESC LIMIT %s OFFSET %s;",
         (PAGE_SIZE, offset)
@@ -45,7 +41,6 @@ def index():
     )
 
 
-# تفاصيل وصفة
 @app.route('/recipes/<int:id>', methods=['GET'])
 def recipe_detail(id):
     conn = connect_to_db()
@@ -53,7 +48,6 @@ def recipe_detail(id):
         return render_template('recipe_detail.html', recipe=None)
 
     cursor = conn.cursor()
-     # زيد view واحد
     cursor.execute("UPDATE recipes SET views = views + 1 WHERE id = %s;", (id,))
     conn.commit()
 
@@ -64,7 +58,6 @@ def recipe_detail(id):
     return render_template('recipe_detail.html', recipe=recipe)
 
 
-# إنشاء وصفة جديدة
 @app.route('/create', methods=['POST', 'GET'])
 def create():
     if request.method == 'POST':
@@ -99,7 +92,6 @@ def create():
     return render_template('create.html')
 
 
-# تعديل وصفة
 @app.route('/edit/<int:id>', methods=['POST', 'GET'])
 def edit(id):
     conn = connect_to_db()
@@ -130,7 +122,6 @@ def edit(id):
     return render_template('edit.html', recipe=recipe)
 
 
-# حذف وصفة
 @app.route('/delete/<int:id>', methods=['POST'])
 def delete(id):
     conn = connect_to_db()
@@ -146,7 +137,7 @@ def delete(id):
     return redirect(url_for('index'))
 
 
-# البحث
+
 @app.route('/search', methods=['GET'])
 def search():
     search_query = request.args.get('query', '').strip()
@@ -156,7 +147,6 @@ def search():
 
     cursor = conn.cursor()
 
-     # خزن كلمة البحث
     if search_query:
         cursor.execute("INSERT INTO search_logs (query) VALUES (%s);", (search_query,))
         conn.commit()
@@ -177,19 +167,15 @@ def dashboard():
     conn = connect_to_db()
     cursor = conn.cursor()
 
-    # عدد الوصفات
     cursor.execute("SELECT COUNT(*) FROM recipes;")
     total_recipes = cursor.fetchone()[0]
 
-    # عدد الوصفات حسب الكاتيجوري
     cursor.execute("SELECT category, COUNT(*) FROM recipes GROUP BY category;")
     categories = cursor.fetchall()
 
-    # الكلمات الأكثر بحثاً
     cursor.execute("SELECT query, COUNT(*) FROM search_logs GROUP BY query ORDER BY COUNT(*) DESC LIMIT 5;")
     popular_searches = cursor.fetchall()
 
-    # الوصفات الأكثر مشاهدة
     cursor.execute("SELECT title, views FROM recipes ORDER BY views DESC LIMIT 5;")
     top_views = cursor.fetchall()
 

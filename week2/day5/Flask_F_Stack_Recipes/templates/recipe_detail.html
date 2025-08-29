@@ -5,7 +5,6 @@
   <h1 class="text-2xl font-bold text-gray-700">Recipe Detail</h1>
 
   <div class="bg-white border cursor-pointer group border-gray-200 rounded-lg p-6 hover:shadow-md transition-all duration-300">
-    <!-- صورة الوصفة -->
     <div class="relative overflow-hidden rounded-md">
       <img
         src="https://picsum.photos/800/500?random={{ recipe[0] }}"
@@ -19,14 +18,12 @@
       </div>
     </div>
 
-    <!-- تفاصيل الوصفة -->
     <div class="mt-4">
       <h2 class="text-xl font-bold">{{ recipe[1] }}</h2>
       <p class="text-gray-600 mt-2"><strong>Ingredients:</strong> {{ recipe[2] }}</p>
       <p class="text-gray-600 mt-2"><strong>Instructions:</strong> {{ recipe[3] }}</p>
     </div>
 
-    <!-- أزرار التعديل والحذف -->
     <div class="flex items-center gap-3 mt-6">
       <a href="{{ url_for('edit', id=recipe[0]) }}"
          class="bg-gray-600 text-white px-4 py-2 rounded-md flex items-center justify-center gap-2 hover:bg-gray-700">
