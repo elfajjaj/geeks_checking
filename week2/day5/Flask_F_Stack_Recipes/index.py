@@ -7,24 +7,34 @@ from math import ceil
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = os.getenv('SECRET_KEY', 'dev-secret')
 
+# عدد الوصفات في كل صفحة
+PAGE_SIZE = 8
+
+
+# الصفحة الرئيسية مع Pagination
 @app.route('/', methods=['GET'])
 def index():
-    pages = 8
-    page = request.args.get('page', 1, type = int)
-    offset = (page -1)* pages
-    conn = connect_to_db()               
-    if not conn:
-        return render_template('index.html', recipes=[])
+    page = request.args.get('page', 1, type=int)
+    offset = (page - 1) * PAGE_SIZE
 
-    cursor = conn.cursor()           
-    cursor.execute("SELECT * FROM recipes LIMIT %s OFFSET %s", (pages,offset,))  
-    recipes = cursor.fetchall()
+    conn = connect_to_db()
+    if not conn:
+        return render_template('index.html', recipes=[], page=1, total_pages=1)
+
+    cursor = conn.cursor()
+    # عدد الوصفات الكلي
     cursor.execute("SELECT COUNT(*) FROM recipes;")
     total = cursor.fetchone()[0]
-    total_pages = ceil(total / pages)
- 
+    total_pages = ceil(total / PAGE_SIZE)
+
+    # الوصفات ديال الصفحة الحالية
+    cursor.execute(
+        "SELECT * FROM recipes ORDER BY id DESC LIMIT %s OFFSET %s;",
+        (PAGE_SIZE, offset)
+    )
+    recipes = cursor.fetchall()
     conn.close()
 
     return render_template(
@@ -32,9 +42,10 @@ def index():
         recipes=recipes,
         page=page,
         total_pages=total_pages
-)
+    )
 
 
+# تفاصيل وصفة
 @app.route('/recipes/<int:id>', methods=['GET'])
 def recipe_detail(id):
     conn = connect_to_db()
@@ -42,13 +53,14 @@ def recipe_detail(id):
         return render_template('recipe_detail.html', recipe=None)
 
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM recipes WHERE id = %s", (id,))
+    cursor.execute("SELECT * FROM recipes WHERE id = %s;", (id,))
     recipe = cursor.fetchone()
     conn.close()
 
     return render_template('recipe_detail.html', recipe=recipe)
 
 
+# إنشاء وصفة جديدة
 @app.route('/create', methods=['POST', 'GET'])
 def create():
     if request.method == 'POST':
@@ -59,7 +71,7 @@ def create():
             'category': request.form.get('category', '').strip()
         }
 
-        
+        # validation
         for key, value in payload.items():
             if not value:
                 flash(f'{key} is required', 'red')
@@ -71,7 +83,7 @@ def create():
 
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO recipes (title, ingredients, instructions, category) VALUES (%s, %s, %s, %s)",
+            "INSERT INTO recipes (title, ingredients, instructions, category) VALUES (%s, %s, %s, %s);",
             (payload['title'], payload['ingredients'], payload['instructions'], payload['category'])
         )
         conn.commit()
@@ -83,6 +95,7 @@ def create():
     return render_template('create.html')
 
 
+# تعديل وصفة
 @app.route('/edit/<int:id>', methods=['POST', 'GET'])
 def edit(id):
     conn = connect_to_db()
@@ -90,7 +103,7 @@ def edit(id):
         return render_template('edit.html', recipe=None)
 
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM recipes WHERE id = %s", (id,))
+    cursor.execute("SELECT * FROM recipes WHERE id = %s;", (id,))
     recipe = cursor.fetchone()
 
     if request.method == 'POST':
@@ -100,7 +113,7 @@ def edit(id):
         category = request.form.get('category', '').strip()
 
         cursor.execute(
-            "UPDATE recipes SET title = %s, ingredients = %s, instructions = %s, category = %s WHERE id = %s",
+            "UPDATE recipes SET title = %s, ingredients = %s, instructions = %s, category = %s WHERE id = %s;",
             (title, ingredients, instructions, category, id)
         )
         conn.commit()
@@ -113,6 +126,7 @@ def edit(id):
     return render_template('edit.html', recipe=recipe)
 
 
+# حذف وصفة
 @app.route('/delete/<int:id>', methods=['POST'])
 def delete(id):
     conn = connect_to_db()
@@ -120,26 +134,31 @@ def delete(id):
         return redirect(url_for('index'))
 
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM recipes WHERE id = %s", (id,))
+    cursor.execute("DELETE FROM recipes WHERE id = %s;", (id,))
     conn.commit()
     conn.close()
 
     flash("Recipe deleted successfully", "blue")
     return redirect(url_for('index'))
 
+
+# البحث
 @app.route('/search', methods=['GET'])
 def search():
     search_query = request.args.get('query', '').strip()
     conn = connect_to_db()
     if not conn:
-        return render_template('index.html', recipes=[])
+        return render_template('index.html', recipes=[], page=1, total_pages=1)
 
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM recipes where title ILIKE %s or category ILIKE %s", (f'%{search_query}%',f'%{search_query}%'))
+    cursor.execute(
+        "SELECT * FROM recipes WHERE title ILIKE %s OR category ILIKE %s;",
+        (f'%{search_query}%', f'%{search_query}%')
+    )
     recipes = cursor.fetchall()
     conn.close()
 
-    return render_template('index.html', recipes=recipes)
+    return render_template('index.html', recipes=recipes, page=1, total_pages=1)
 
 
 if __name__ == '__main__':
