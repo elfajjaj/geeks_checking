@@ -70,6 +70,14 @@ VALUES (
 );
 
 
+ALTER TABLE recipes ADD COLUMN views INT DEFAULT 0;
+
+CREATE TABLE IF NOT EXISTS search_logs (
+    id SERIAL PRIMARY KEY,
+    query VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 
+select * from recipes
 

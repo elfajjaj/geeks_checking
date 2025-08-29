@@ -53,6 +53,10 @@ def recipe_detail(id):
         return render_template('recipe_detail.html', recipe=None)
 
     cursor = conn.cursor()
+     # زيد view واحد
+    cursor.execute("UPDATE recipes SET views = views + 1 WHERE id = %s;", (id,))
+    conn.commit()
+
     cursor.execute("SELECT * FROM recipes WHERE id = %s;", (id,))
     recipe = cursor.fetchone()
     conn.close()
@@ -151,6 +155,12 @@ def search():
         return render_template('index.html', recipes=[], page=1, total_pages=1)
 
     cursor = conn.cursor()
+
+     # خزن كلمة البحث
+    if search_query:
+        cursor.execute("INSERT INTO search_logs (query) VALUES (%s);", (search_query,))
+        conn.commit()
+
     cursor.execute(
         "SELECT * FROM recipes WHERE title ILIKE %s OR category ILIKE %s;",
         (f'%{search_query}%', f'%{search_query}%')
@@ -159,6 +169,37 @@ def search():
     conn.close()
 
     return render_template('index.html', recipes=recipes, page=1, total_pages=1)
+
+
+# Dashboard
+@app.route('/dashboard')
+def dashboard():
+    conn = connect_to_db()
+    cursor = conn.cursor()
+
+    # عدد الوصفات
+    cursor.execute("SELECT COUNT(*) FROM recipes;")
+    total_recipes = cursor.fetchone()[0]
+
+    # عدد الوصفات حسب الكاتيجوري
+    cursor.execute("SELECT category, COUNT(*) FROM recipes GROUP BY category;")
+    categories = cursor.fetchall()
+
+    # الكلمات الأكثر بحثاً
+    cursor.execute("SELECT query, COUNT(*) FROM search_logs GROUP BY query ORDER BY COUNT(*) DESC LIMIT 5;")
+    popular_searches = cursor.fetchall()
+
+    # الوصفات الأكثر مشاهدة
+    cursor.execute("SELECT title, views FROM recipes ORDER BY views DESC LIMIT 5;")
+    top_views = cursor.fetchall()
+
+    conn.close()
+
+    return render_template('dashboard.html',
+                           total_recipes=total_recipes,
+                           categories=categories,
+                           popular_searches=popular_searches,
+                           top_views=top_views)
 
 
 if __name__ == '__main__':

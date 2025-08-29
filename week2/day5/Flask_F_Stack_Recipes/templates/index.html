@@ -4,7 +4,7 @@
 <main class="max-w-7xl mx-auto my-10">
 
   <!-- الوصفات -->
-  <div class="grid grid-cols-1 mt-4 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch w-[1250px] p-6">
+  <div class="grid grid-cols-1 mt-4 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch w-full px-6">
     {% for recipe in recipes %}
     <a href="{{ url_for('recipe_detail', id=recipe[0]) }}" class="flex">
       <div
