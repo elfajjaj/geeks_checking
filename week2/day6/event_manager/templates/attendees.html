@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Attendees</h2>
+<form method="post" class="space-y-2 mb-4">
+  <input name="name" placeholder="Name" class="border w-full p-1">
+  <input name="email" placeholder="Email" class="border w-full p-1">
+  <input name="phone" placeholder="Phone" class="border w-full p-1">
+  <button class="bg-blue-500 text-white px-3">Add</button>
+</form>
+<ul>
+{% for a in attendees %}
+  <li class="bg-white p-2 mb-2">{{ a.name }} - {{ a.email }}</li>
+{% else %}
+  <li>No attendees.</li>
+{% endfor %}
+</ul>
+{% endblock %}
