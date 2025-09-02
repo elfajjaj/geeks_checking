@@ -41,7 +41,7 @@ function swapCase(str) {
 
 console.log(swapCase("The Quick Brown Fox"));
 
-// // Exercise 4:
+// Exercise 4:
 
 function isOmnipresent(arr, value) {
   for (let i = 0; i < arr.length; i++) {
@@ -56,7 +56,6 @@ console.log(isOmnipresent([[3, 4], [8, 3, 2], [3], [9, 3], [5, 3], [4, 3]], 3));
 console.log(isOmnipresent([[3, 4], [8, 3, 2], [3], [9, 3], [5, 3], [4, 3]], 4)); 
 
 // Exercise 5:
-
-// in indexe.html
+// in index.html
   
 
