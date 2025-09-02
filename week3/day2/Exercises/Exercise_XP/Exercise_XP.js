@@ -144,38 +144,35 @@ totalVacationCost();
 
 // Exercise 5:
 
-// 1. Retrieve the div and console.log it
+// 1. 
 const containerDiv = document.getElementById("container");
 console.log(containerDiv);
 
-// 2. Change the name “Pete” to “Richard”
+// 2. 
 document.querySelectorAll("ul.list")[0].children[1].innerText = "Richard";
 
-// 3. Delete the second <li> of the second <ul>
-document.querySelectorAll("ul.list")[1].children[1].remove(); // removes "Sarah"
+// 3. 
+document.querySelectorAll("ul.list")[1].children[1].remove(); 
 
-// 4. Change the first <li> of each <ul> to your name
+// 4. 
 document.querySelectorAll("ul.list").forEach(ul => {
   ul.children[0].innerText = "Fatima Ezzahra";
 });
 
-// --- CSS/Classes Manipulations ---
-
-// 5. Add a class called student_list to both <ul>'s
+// 5. 
 document.querySelectorAll("ul.list").forEach(ul => {
   ul.classList.add("student_list");
 });
 
-// 6. Add the classes university and attendance to the first <ul>
+// 6. 
 document.querySelectorAll("ul.list")[0].classList.add("university", "attendance");
 
-// --- Styling manipulations ---
 
-// 7. Add light blue background and padding to <div>
+// 7. 
 containerDiv.style.backgroundColor = "lightblue";
 containerDiv.style.padding = "10px";
 
-// 8. Hide the <li> that contains “Dan”
+// 8. 
 let allLis = document.querySelectorAll("li");
 allLis.forEach(li => {
   if (li.innerText === "Dan") {
@@ -183,14 +180,14 @@ allLis.forEach(li => {
   }
 });
 
-// 9. Add border to the <li> that contains “Richard”
+// 9. 
 allLis.forEach(li => {
   if (li.innerText === "Richard") {
     li.style.border = "2px solid black";
   }
 });
 
-// 10. Change the font size of the whole body
+// 10. 
 document.body.style.fontSize = "20px";
 
 // --- Bonus ---
@@ -201,20 +198,20 @@ if (containerDiv.style.backgroundColor === "lightblue") {
 }
 
 
-// Exercise 6/
+// Exercise 6
 
-// 1. Change the id attribute of the div from navBar to socialNetworkNavigation
+// 1. 
 const navBarDiv = document.getElementById("navBar");
 navBarDiv.setAttribute("id", "socialNetworkNavigation");
 
-// 2. Add a new <li> with text "Logout"
+// 2. 
 const ul = document.querySelector("ul");
-const newLi = document.createElement("li"); // create <li>
-const newText = document.createTextNode("Logout"); // create text
-newLi.appendChild(newText); // put text inside <li>
-ul.appendChild(newLi); // add <li> inside <ul>
+const newLi = document.createElement("li"); 
+const newText = document.createTextNode("Logout"); 
+newLi.appendChild(newText); 
+ul.appendChild(newLi); 
 
-// 3. Retrieve first and last <li> elements
+// 3. 
 const firstLi = ul.firstElementChild;
 const lastLi = ul.lastElementChild;
 
@@ -224,7 +221,7 @@ console.log("Last link text:", lastLi.textContent);
 
 // Exercise 7:
 
-// 1. Array of books
+// 1. 
 const allBooks = [
   {
     title: "Harry Potter",
@@ -240,30 +237,26 @@ const allBooks = [
   }
 ];
 
-// 2. Get the section
+// 2. 
 const section = document.querySelector(".listBooks");
 
-// 3. Render each book
+// 3. 
 allBooks.forEach(book => {
-  // create div for book
+
   const bookDiv = document.createElement("div");
   bookDiv.style.marginBottom = "15px";
 
-  // title + author
   const details = document.createElement("p");
   details.textContent = `${book.title} written by ${book.author}`;
 
-  // if already read => red
   if (book.alreadyRead) {
     details.style.color = "red";
   }
 
-  // image
   const img = document.createElement("img");
   img.src = book.image;
   img.style.width = "100px";
 
-  // append
   bookDiv.appendChild(details);
   bookDiv.appendChild(img);
   section.appendChild(bookDiv);
