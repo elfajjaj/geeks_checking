@@ -1,43 +1,40 @@
 // Exercise 1
 
-// 1. عرض القيمة ديال option اللي مختار
+// 1.
 const select = document.getElementById("genres");
 const output = document.getElementById("output");
 
-// إظهار القيمة مباشرة ملي تحمل الصفحة
 output.textContent = "Selected: " + select.value;
 
-// تحديث القيمة ملي يبدل المستخدم الاختيار
 select.addEventListener("change", () => {
   output.textContent = "Selected: " + select.value;
 });
 
-// 2. نزيد option جديد "Classic"
+// 2. 
 const newOption = new Option("Classic", "classic");
 
-// 3. نضيفو للـ select
+// 3. 
 select.appendChild(newOption);
 
-// 4. نخلي "Classic" مختار by default
+// 4.
 select.value = "classic";
 output.textContent = "Selected: " + select.value;
 
 
 // Exercise 2
 
-// function removecolor()
+
 function removecolor() {
   const select = document.getElementById("colorSelect");
   select.remove(select.selectedIndex);
 }
-
-// نربط الزر بالـ function
 document.getElementById("removeBtn").addEventListener("click", removecolor);
 
 
 // Exercise 3
 
 // 1. Empty array for shopping list
+
 let shoppingList = [];
 
 // 2. Get root div
@@ -51,7 +48,7 @@ input.placeholder = "Enter item...";
 
 const addBtn = document.createElement("button");
 addBtn.textContent = "AddItem";
-addBtn.type = "submit"; // باش يتفاعل مع form
+addBtn.type = "submit"; 
 
 // 4. Create ClearAll button
 const clearBtn = document.createElement("button");
@@ -70,7 +67,7 @@ root.appendChild(list);
 
 // 6. Function to update DOM with shoppingList
 function renderList() {
-  list.innerHTML = ""; // مسح اللائحة قبل ما نعاود نرسمها
+  list.innerHTML = ""; 
   shoppingList.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = item;
@@ -80,7 +77,7 @@ function renderList() {
 
 // 7. addItem function
 function addItem(event) {
-  event.preventDefault(); // باش مايعيدش تحميل الصفحة
+  event.preventDefault();
   const value = input.value.trim();
   if (value !== "") {
     shoppingList.push(value);
@@ -91,8 +88,8 @@ function addItem(event) {
 
 // 8. clearAll function
 function clearAll() {
-  shoppingList = []; // نفرغ المصفوفة
-  renderList(); // نفرغ اللائحة فالـ DOM
+  shoppingList = []; 
+  renderList(); 
 }
 
 // 9. Event listeners
