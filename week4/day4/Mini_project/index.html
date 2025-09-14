@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Quote Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    section {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      min-height: 60px;
+    }
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+    }
+    form {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Random Quote Generator</h2>
+
+  <section id="quote-display"></section>
+
+  <button id="generate">Generate Quote</button>
+
+  <hr>
+
+  <form id="add-form">
+    <input type="text" id="new-quote" placeholder="Enter quote" required>
+    <input type="text" id="new-author" placeholder="Enter author" required>
+    <button type="submit">Add Quote</button>
+  </form>
+
+  <div>
+    <button id="char-space">Chars (with space)</button>
+    <button id="char-nospace">Chars (no space)</button>
+    <button id="word-count">Words</button>
+    <button id="like">Like ❤️</button>
+  </div>
+
+  <hr>
+
+  <form id="filter-form">
+    <input type="text" id="filter-author" placeholder="Enter author name">
+    <button type="submit">Filter</button>
+  </form>
+  <div>
+    <button id="prev">Previous</button>
+    <button id="next">Next</button>
+  </div>
+
+  <script src="script.js"></script>
+ 
+</body>
+</html>
