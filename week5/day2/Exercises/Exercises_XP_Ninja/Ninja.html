@@ -1,0 +1,36 @@
+<!-- Exercise 1 : Giphy API #3 -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Giphy Search</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #gif-container img { max-width: 200px; margin: 10px; border-radius: 8px; }
+    .gif-box { display: inline-block; text-align: center; margin: 10px; }
+    button { margin-top: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>🌟 Giphy Search</h1>
+
+  <!-- Form -->
+  <form id="gif-form">
+    <input type="text" id="category" placeholder="Enter category (ex: cat)" required>
+    <button type="submit">Get GIFs</button>
+  </form>
+
+  <!-- Delete All -->
+  <button id="delete-all">DELETE ALL</button>
+
+  <!-- Container -->
+  <div id="gif-container"></div>
+
+  <script src="Ninja.js"></script>
+</body>
+</html>
+
+
+
