@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunrise Finder</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    label { display: block; margin-top: 10px; }
+    input { margin-bottom: 10px; padding: 5px; }
+    button { margin-top: 10px; padding: 8px 15px; cursor: pointer; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🌅 Sunrise Finder</h1>
+
+  <form id="sunrise-form">
+    <h3>City 1</h3>
+    <label>Latitude: <input type="text" id="lat1" value="48.864716" required></label>
+    <label>Longitude: <input type="text" id="lng1" value="2.349014" required></label>
+
+    <h3>City 2</h3>
+    <label>Latitude: <input type="text" id="lat2" value="40.730610" required></label>
+    <label>Longitude: <input type="text" id="lng2" value="-73.935242" required></label>
+
+    <button type="submit">Get Sunrise Times</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="promisall.js"></script>
+</body>
+</html>
