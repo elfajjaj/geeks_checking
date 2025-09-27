@@ -1,0 +1,36 @@
+### Get all posts
+GET http://localhost:5000/api/posts
+Accept: application/json
+
+
+### Get single post
+GET http://localhost:5000/api/posts/1
+Accept: application/json
+
+
+### Create new post
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+
+{
+  "title": "My New Post",
+  "body": "This is the content of my new post",
+  "userId": 1
+}
+
+
+### Update post
+PUT http://localhost:5000/api/posts/1
+Content-Type: application/json
+
+{
+  "title": "Updated Post Title",
+  "body": "This is the updated content of the post",
+  "userId": 1
+}
+
+
+### Delete post
+DELETE http://localhost:5000/api/posts/1
+Accept: application/json
+

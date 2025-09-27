@@ -1,0 +1,54 @@
+GET http://localhost:4000/posts
+Accept: application/json
+
+### Create a new post
+
+POST http://localhost:4000/posts
+Content-Type: application/json
+
+{
+    "id": 3,
+    "title": "New",
+    "content": "This is the content of the new post."
+}
+
+### Update a post
+delete http://localhost:4000/posts/3
+
+
+
+########################################################
+
+
+###
+get http://localhost:5000/api/books
+Accept: application/json
+
+###
+get http://localhost:5000/api/books/3
+Accept: application/json
+
+###
+POST http://localhost:5000/api/books
+Content-Type: application/json
+
+{
+    "title": "Harry Potter",
+    "author": "J.K. Rowling",
+    "publishedYear": 1997
+}
+
+
+#######################################################
+
+GET http://localhost:5000/api/posts
+Accept:  : application/json
+
+
+
+
+
+
+
+
+
