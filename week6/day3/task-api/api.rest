@@ -1,0 +1,23 @@
+### Create task
+
+curl -X POST http://localhost:3000/tasks \
+-H "Content-Type: application/json" \
+-d '{"title": "Learn Express", "description": "Build APIs with Express"}'
+
+
+### Get all tasks
+
+curl http://localhost:3000/tasks
+
+
+### Update task
+
+curl -X PUT http://localhost:3000/tasks/1 \
+-H "Content-Type: application/json" \
+-d '{"title": "Learn Express.js", "description": "Build CRUD API", "completed": true}'
+
+
+### Delete task
+
+curl -X DELETE http://localhost:3000/tasks/1
+
