@@ -1,0 +1,26 @@
+GET http://localhost:3000/books
+
+
+###
+
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "title": "Clean Code",
+  "author": "Robert C. Martin"
+}
+
+###
+
+PUT http://localhost:3000/books/1
+Content-Type: application/json
+
+{
+  "title": "Clean Coder",
+  "author": "Robert C. Martin"
+}
+
+###
+
+DELETE http://localhost:3000/books/1

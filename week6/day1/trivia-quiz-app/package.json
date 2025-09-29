@@ -1,0 +1,16 @@
+{
+  "name": "trivia-quiz-app",
+  "version": "1.0.0",
+  "description": "Simple trivia quiz built with Express and express.Router",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3"
+  }
+}
