@@ -1,67 +1,68 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 
-// POST /register
-const register = async (req, res) => {
+const saltRounds = 10;
+
+exports.register = async (req, res) => {
   try {
-    const { email, username, password, first_name, last_name } = req.body;
+    const { email, username, first_name, last_name, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    if (!email || !username || !password) {
-      return res.status(400).json({ message: "Missing required fields" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.createUser(
+    const user = await User.create(
       { email, username, first_name, last_name },
       hashedPassword
     );
-
-    res.status(201).json({ message: "User registered successfully", user });
+    res.status(201).json(user);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ error: "Failed to register user" });
   }
 };
 
-// POST /login
-const login = async (req, res) => {
+exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const storedUser = await User.getPasswordByUsername(username);
+    const hashRecord = await User.getHashByUsername(username);
 
-    if (!storedUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    if (!hashRecord)
+      return res.status(400).json({ error: "Invalid username or password" });
 
-    const isMatch = await bcrypt.compare(password, storedUser.password);
+    const match = await bcrypt.compare(password, hashRecord.password);
+    if (!match)
+      return res.status(400).json({ error: "Invalid username or password" });
 
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid password" });
-    }
-
-    res.json({ message: "Login successful ✅" });
+    res.json({ message: "Login successful" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ error: "Login failed" });
   }
 };
 
-// GET /users
-const getUsers = async (req, res) => {
-  const users = await User.getAllUsers();
-  res.json(users);
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.getAll();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
 };
 
-// GET /users/:id
-const getUser = async (req, res) => {
-  const user = await User.getUserById(req.params.id);
-  if (!user) return res.status(404).json({ message: "User not found" });
-  res.json(user);
+exports.getUserById = async (req, res) => {
+  try {
+    const user = await User.getById(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch user" });
+  }
 };
 
-// PUT /users/:id
-const updateUser = async (req, res) => {
-  const user = await User.updateUser(req.params.id, req.body);
-  if (!user.length) return res.status(404).json({ message: "User not found" });
-  res.json(user[0]);
+exports.updateUser = async (req, res) => {
+  try {
+    const [updatedUser] = await User.update(req.params.id, req.body);
+    if (!updatedUser) return res.status(404).json({ error: "User not found" });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update user" });
+  }
 };
-
-module.exports = { register, login, getUsers, getUser, updateUser };

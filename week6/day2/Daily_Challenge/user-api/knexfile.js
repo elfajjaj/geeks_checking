@@ -3,8 +3,8 @@ module.exports = {
     client: "pg",
     connection: {
       host: "127.0.0.1",
-      user: "postgres", // change with your DB username
-      password: "123456", // change with your DB password
+      user: "postgres", // 👈 حط اليوزر ديالك
+      password: "123456", // 👈 الباس ديالك
       database: "userdb",
     },
     migrations: {
