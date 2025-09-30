@@ -1,58 +1,49 @@
 const Post = require("../models/postModel");
 
-
-const getPosts = async (req, res) => {
+exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.getAllPosts();
+    const posts = await Post.getAll();
     res.json(posts);
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Failed to fetch posts" });
   }
 };
 
-
-const getPost = async (req, res) => {
+exports.getPostById = async (req, res) => {
   try {
-    const post = await Post.getPostById(req.params.id);
+    const post = await Post.getById(req.params.id);
     if (!post) return res.status(404).json({ error: "Post not found" });
     res.json(post);
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Failed to fetch post" });
   }
 };
 
-
-const createPost = async (req, res) => {
-  const { title, content } = req.body;
+exports.createPost = async (req, res) => {
   try {
-    const newPost = await Post.createPost(title, content);
+    const [newPost] = await Post.create(req.body);
     res.status(201).json(newPost);
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Failed to create post" });
   }
 };
 
-
-const updatePost = async (req, res) => {
-  const { title, content } = req.body;
+exports.updatePost = async (req, res) => {
   try {
-    const updatedPost = await Post.updatePost(req.params.id, title, content);
+    const [updatedPost] = await Post.update(req.params.id, req.body);
     if (!updatedPost) return res.status(404).json({ error: "Post not found" });
     res.json(updatedPost);
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Failed to update post" });
   }
 };
 
-
-const deletePost = async (req, res) => {
+exports.deletePost = async (req, res) => {
   try {
-    const deletedPost = await Post.deletePost(req.params.id);
-    if (!deletedPost) return res.status(404).json({ error: "Post not found" });
-    res.json({ message: "Post deleted successfully" });
+    const deleted = await Post.delete(req.params.id);
+    if (!deleted) return res.status(404).json({ error: "Post not found" });
+    res.json({ message: "Post deleted" });
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Failed to delete post" });
   }
 };
-
-module.exports = { getPosts, getPost, createPost, updatePost, deletePost };
