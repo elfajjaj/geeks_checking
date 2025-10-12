@@ -1,0 +1,46 @@
+.AutoCompletedText {
+  width: 300px;
+  margin: 40px auto;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.AutoCompletedText input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+
+.AutoCompletedText ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.AutoCompletedText li {
+  padding: 10px;
+  background-color: #eee;
+  margin: 4px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  border-left: 6px solid #f7c600;
+}
+
+.AutoCompletedText li:hover {
+  background-color: #ddd;
+}
+
+.footer {
+  background-color: #f7c600;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-weight: bold;
+}
