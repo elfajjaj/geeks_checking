@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #fafafa;
+}
+
+.logo {
+  text-align: center;
+  font-size: 3rem;
+  font-family: "Lobster", cursive;
+  color: #001f3f;
+  margin-top: 20px;
+}
+
+.navbar {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.navbar form {
+  display: inline-flex;
+  margin-bottom: 15px;
+}
+
+.navbar input {
+  padding: 8px;
+  width: 200px;
+  border-radius: 4px 0 0 4px;
+  border: 1px solid #ccc;
+}
+
+.navbar button {
+  padding: 8px 12px;
+  background: #001f3f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+}
+
+.categories button {
+  margin: 5px;
+  background: #001f3f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.categories button:hover {
+  background-color: #003366;
+  transition: 0.3s;
+}
