@@ -1,17 +1,17 @@
-// Exercise 1
+// // Exercise 1
 
-import React from "react";
-import PostUser from "./Exercise1/PostUser";
+// import React from "react";
+// import PostUser from "./Exercise1/PostUser";
 
-function App() {
-  return (
-    <div>
-      <PostUser />
-    </div>
-  );
-}
+// function App() {
+//   return (
+//     <div>
+//       <PostUser />
+//     </div>
+//   );
+// }
 
-export default App;
+// export default App;
 
 
 // Exercise 2
