@@ -51,7 +51,7 @@
 
       gridEl.style.setProperty("--size", size);
       gridEl.innerHTML = "";
-      // draw cells
+
       for (let y = 0; y < size; y++) {
         for (let x = 0; x < size; x++) {
           const cell = document.createElement("div");
@@ -61,12 +61,12 @@
       }
 
       function idx(x, y) { return y * size + x; }
-      // obstacles
+
       for (const o of obstacles) gridEl.children[idx(o.x, o.y)].classList.add("obstacle");
-      // bases
+
       gridEl.children[idx(bases.p1.x, bases.p1.y)].classList.add("base", "p1");
       gridEl.children[idx(bases.p2.x, bases.p2.y)].classList.add("base", "p2");
-      // players
+
       gridEl.children[idx(players.p1.x, players.p1.y)].classList.add("player", "p1");
       gridEl.children[idx(players.p2.x, players.p2.y)].classList.add("player", "p2");
     }
@@ -97,7 +97,6 @@
       await fetchState();
     });
 
-    // poll state every 1.2s to see opponent moves
     setInterval(fetchState, 1200);
     fetchState();
   </script>

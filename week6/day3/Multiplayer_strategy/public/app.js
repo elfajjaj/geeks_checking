@@ -1,4 +1,3 @@
-// basic helpers
 const $ = (sel) => document.querySelector(sel);
 
 const regForm = $("#regForm");
@@ -32,14 +31,12 @@ startForm.addEventListener("submit", async (e) => {
     ? `GameId: ${data.gameId}`
     : JSON.stringify(data);
   if (res.ok) {
-    // auto open board as p1
     window.location.href = `/board.html?gameId=${
       data.gameId
     }&viewer=${encodeURIComponent(p1)}`;
   }
 });
 
-// board launcher
 const openForm = $("#openForm");
 openForm.addEventListener("submit", (e) => {
   e.preventDefault();
