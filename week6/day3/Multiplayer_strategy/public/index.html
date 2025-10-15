@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Base Capture | Join</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="./style.css"/>
+</head>
+<body class="join">
+  <div class="panel">
+    <h1>Base Capture</h1>
+
+    <section>
+      <h2>1) Register users</h2>
+      <form id="regForm" class="row">
+        <input id="regUser" placeholder="username" required/>
+        <input id="regPass" placeholder="password" required/>
+        <button>Register</button>
+      </form>
+      <div id="regOut" class="out"></div>
+    </section>
+
+    <section>
+      <h2>2) Start game</h2>
+      <form id="startForm" class="col">
+        <input id="p1" placeholder="player1 (registered)" required/>
+        <input id="p2" placeholder="player2 (registered)" required/>
+        <input id="obstacles" type="number" min="0" max="20" value="10"/>
+        <button>Start</button>
+      </form>
+      <div id="startOut" class="out"></div>
+    </section>
+
+    <section>
+      <h2>3) Open board</h2>
+      <form id="openForm" class="col">
+        <input id="openGameId" placeholder="gameId" required/>
+        <input id="viewer" placeholder="viewer username" required/>
+        <button>Open</button>
+      </form>
+    </section>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

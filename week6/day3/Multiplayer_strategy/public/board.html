@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Base Capture | Board</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="./style.css"/>
+</head>
+<body>
+  <header class="top">
+    <a href="/" class="back">← back</a>
+    <div id="meta"></div>
+  </header>
+
+  <main class="grid-wrap">
+    <div id="grid" class="grid"></div>
+    <div class="controls">
+      <div class="row">
+        <button data-dir="up">↑</button>
+      </div>
+      <div class="row">
+        <button data-dir="left">←</button>
+        <button data-dir="down">↓</button>
+        <button data-dir="right">→</button>
+      </div>
+      <button id="attack">Attack (adjacent)</button>
+      <div id="status"></div>
+    </div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const gameId = params.get("gameId");
+    const viewer = params.get("viewer");
+
+    const gridEl = document.getElementById("grid");
+    const metaEl = document.getElementById("meta");
+    const statusEl = document.getElementById("status");
+
+    let state = null;
+    async function fetchState() {
+      const res = await fetch(`/api/game/${gameId}/state?viewer=${encodeURIComponent(viewer)}`);
+      if (!res.ok) { statusEl.textContent = await res.text(); return; }
+      state = await res.json();
+      render();
+    }
+
+    function render() {
+      const { size, bases, players, obstacles, turn, winner, you } = state;
+      metaEl.textContent = `Game ${state.gameId} — You: ${you} — Turn: ${turn} ${winner ? `— WINNER: ${winner}` : ""}`;
+
+      gridEl.style.setProperty("--size", size);
+      gridEl.innerHTML = "";
+      // draw cells
+      for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
+          const cell = document.createElement("div");
+          cell.className = "cell";
+          gridEl.appendChild(cell);
+        }
+      }
+
+      function idx(x, y) { return y * size + x; }
+      // obstacles
+      for (const o of obstacles) gridEl.children[idx(o.x, o.y)].classList.add("obstacle");
+      // bases
+      gridEl.children[idx(bases.p1.x, bases.p1.y)].classList.add("base", "p1");
+      gridEl.children[idx(bases.p2.x, bases.p2.y)].classList.add("base", "p2");
+      // players
+      gridEl.children[idx(players.p1.x, players.p1.y)].classList.add("player", "p1");
+      gridEl.children[idx(players.p2.x, players.p2.y)].classList.add("player", "p2");
+    }
+
+    async function move(direction) {
+      const res = await fetch(`/api/game/${gameId}/move`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: viewer, direction }),
+      });
+      const data = await res.json();
+      statusEl.textContent = data.error || data.message || "";
+      await fetchState();
+    }
+
+    document.querySelectorAll("[data-dir]").forEach(btn => {
+      btn.addEventListener("click", () => move(btn.dataset.dir));
+    });
+
+    document.getElementById("attack").addEventListener("click", async () => {
+      const res = await fetch(`/api/game/${gameId}/attack`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: viewer }),
+      });
+      const data = await res.json();
+      statusEl.textContent = data.error || data.message || "";
+      await fetchState();
+    });
+
+    // poll state every 1.2s to see opponent moves
+    setInterval(fetchState, 1200);
+    fetchState();
+  </script>
+</body>
+</html>
