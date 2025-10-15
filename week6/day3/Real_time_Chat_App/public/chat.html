@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">💬 chat</div>
+    <div class="room" id="roomName"></div>
+    <a class="leave" href="./index.html">leave</a>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <h3>users</h3>
+      <ul id="users"></ul>
+    </aside>
+
+    <section class="chat">
+      <ul id="messages" class="messages"></ul>
+
+      <form id="msgForm" class="composer">
+        <input id="msg" type="text" placeholder="type a message..." autocomplete="off" required />
+        <button type="submit">send</button>
+      </form>
+    </section>
+  </main>
+
+  <audio id="ding" src="data:audio/wav;base64,UklGRhYAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABYAZGF0YQgAAAABAQ==" preload="auto"></audio>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./client.js"></script>
+</body>
+</html>

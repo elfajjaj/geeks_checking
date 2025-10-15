@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Join | Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body class="center">
+  <div class="card">
+    <h1>real-time chat</h1>
+    <form id="join-form">
+      <label>username</label>
+      <input id="username" type="text" required maxlength="18" placeholder="your name" />
+      <label>room</label>
+      <input id="room" type="text" required maxlength="24" placeholder="e.g. general" />
+      <button type="submit">join</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("join-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const room = document.getElementById("room").value.trim();
+      if (!username || !room) return;
+      const params = new URLSearchParams({ username, room });
+      window.location.href = `./chat.html?${params.toString()}`;
+    });
+  </script>
+</body>
+</html>
