@@ -1,7 +1,5 @@
-// src/redux/userSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Thunk لجلب البيانات من API
 export const fetchUsers = createAsyncThunk("user/fetchUsers", async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/users");
   if (!response.ok) {
@@ -18,7 +16,7 @@ const userSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {}, // ما عندناش reducers عاديين فهاد المشروع
+  reducers: {}, 
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
