@@ -16,7 +16,6 @@ const booksSlice = createSlice({
   reducers: {},
 });
 
-// ✅ Selectors
 export const selectBooks = (state) => state.books.list;
 
 export const selectHorrorBooks = createSelector([selectBooks], (books) =>
