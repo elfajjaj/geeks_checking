@@ -1,108 +1,108 @@
-// Exercise1
+// // Exercise1
 
-import React from "react";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import ErrorBoundary from "./Exercise1/ErrorBoundary";
-import "./App.css";
+// import React from "react";
+// import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+// import ErrorBoundary from "./Exercise1/ErrorBoundary";
+// import "./App.css";
 
-function Home() {
-  return <h1 style={{ textAlign: "center" }}>Home</h1>;
-}
+// function Home() {
+//   return <h1 style={{ textAlign: "center" }}>Home</h1>;
+// }
 
-function Profile() {
-  return <h1 style={{ textAlign: "center" }}>Profile Screen</h1>;
-}
+// function Profile() {
+//   return <h1 style={{ textAlign: "center" }}>Profile Screen</h1>;
+// }
 
-function Shop() {
-  throw new Error("Shop crashed!");
-}
+// function Shop() {
+//   throw new Error("Shop crashed!");
+// }
 
-function App() {
-  return (
-    <BrowserRouter>
-      <nav className="navbar">
-        <NavLink to="/" className="nav-link">
-          Home
-        </NavLink>
-        <NavLink to="/profile" className="nav-link">
-          Profile
-        </NavLink>
-        <NavLink to="/shop" className="nav-link">
-          Shop
-        </NavLink>
-      </nav>
+// function App() {
+//   return (
+//     <BrowserRouter>
+//       <nav className="navbar">
+//         <NavLink to="/" className="nav-link">
+//           Home
+//         </NavLink>
+//         <NavLink to="/profile" className="nav-link">
+//           Profile
+//         </NavLink>
+//         <NavLink to="/shop" className="nav-link">
+//           Shop
+//         </NavLink>
+//       </nav>
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ErrorBoundary>
-              <Home />
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ErrorBoundary>
-              <Profile />
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/shop"
-          element={
-            <ErrorBoundary>
-              <Shop />
-            </ErrorBoundary>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+//       <Routes>
+//         <Route
+//           path="/"
+//           element={
+//             <ErrorBoundary>
+//               <Home />
+//             </ErrorBoundary>
+//           }
+//         />
+//         <Route
+//           path="/profile"
+//           element={
+//             <ErrorBoundary>
+//               <Profile />
+//             </ErrorBoundary>
+//           }
+//         />
+//         <Route
+//           path="/shop"
+//           element={
+//             <ErrorBoundary>
+//               <Shop />
+//             </ErrorBoundary>
+//           }
+//         />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// }
 
-export default App;
-
-
-
-// Exercise 2
-
-import React from "react";
-import PostList from "./Exercise2/PostList";
-
-function App() {
-  return (
-    <div>
-      <PostList />
-    </div>
-  );
-}
-
-export default App;
+// export default App;
 
 
-// Exercise 3
+
+// // Exercise 2
+
+// import React from "react";
+// import PostList from "./Exercise2/PostList";
+
+// function App() {
+//   return (
+//     <div>
+//       <PostList />
+//     </div>
+//   );
+// }
+
+// export default App;
 
 
-import React from "react";
-import Example1 from "./Exercise3/Example1";
-import Example2 from "./Exercise3/Example2";
-import Example3 from "./Exercise3/Example3";
+// // Exercise 3
 
-function App() {
-  return (
-    <div>
-      <Example1 />
-      <hr />
-      <Example2 />
-      <hr />
-      <Example3 />
-    </div>
-  );
-}
 
-export default App;
+// import React from "react";
+// import Example1 from "./Exercise3/Example1";
+// import Example2 from "./Exercise3/Example2";
+// import Example3 from "./Exercise3/Example3";
+
+// function App() {
+//   return (
+//     <div>
+//       <Example1 />
+//       <hr />
+//       <Example2 />
+//       <hr />
+//       <Example3 />
+//     </div>
+//   );
+// }
+
+// export default App;
 
 
 // Exercise 4
