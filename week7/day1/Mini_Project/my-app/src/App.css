@@ -1,0 +1,26 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: #e74c3c;
+}
+
+.bg-danger {
+  background-color: #e74c3c !important;
+}
+
+.text-danger {
+  color: #e74c3c !important;
+}
+
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .d-flex .me-4 {
+    margin-bottom: 1rem;
+  }
+}
